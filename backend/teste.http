@@ -1,0 +1,62 @@
+### teste de cadastro de funcionario
+
+POST http://localhost:3000/funcionario
+Content-Type: application/json
+
+{
+    "nome":"mario",
+    "email":"mario@gmail",
+    "senha":"123"
+}
+
+### teste de login de funcionario
+# @name loginReq
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "email":"mario@gmail",
+    "senha":"123"
+}
+
+### teste de cadastro de motorista - rota privada
+POST http://localhost:3000/motorista
+Content-Type: application/json
+Authorization: {{loginReq.response.body.token}}
+
+{
+    "nome":"ueslei",
+    "cnh":"2552",
+    "cpf":"12345678990",
+    "telefone":"48999545106"
+}
+
+### teste de cadastro de carga - rota privada
+POST http://localhost:3000/carga
+Content-Type: application/json
+Authorization: {{loginReq.response.body.token}}
+
+{
+    "descricao":"urnas eletronicas",
+    "peso": 25.5,
+    "volume": 32.7,
+    "codRastreio":567889,
+    "idMotorista": 1
+}
+
+### teste de cadastro de entrega - rota privada
+POST http://localhost:3000/entrega
+Content-Type: application/json
+Authorization: {{loginReq.response.body.token}}
+
+{
+    "cidadeDestino":"Tijucas",
+    "statusAtual": "ENTREGUE",
+    "dataHora": "2026-11-25 14:00:00",
+    "idCarga": 1
+}
+
+### teste de apagar motorista - rota privada
+DELETE http://localhost:3000/motorista/1
+Content-Type: application/json
+Authorization: {{loginReq.response.body.token}}
